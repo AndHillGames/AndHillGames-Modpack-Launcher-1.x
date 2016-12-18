@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.andhillgames.ahglauncher.dialogs.SettingsController">
+   <children>
+      <TitledPane collapsible="false" layoutX="14.0" layoutY="14.0" prefHeight="264.0" prefWidth="460.0" text="Minecraft Settings" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <content>
+            <AnchorPane prefHeight="202.0" prefWidth="458.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="6.0" text="Java Path:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField id="javapath" fx:id="javapath" layoutX="20.0" layoutY="37.0" promptText="Please enter the path were your java runtime is installed" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Label layoutX="20.0" layoutY="72.0" text="Username (E-Mail not registered username):" AnchorPane.leftAnchor="10.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField id="useremail" fx:id="useremail" layoutX="20.0" layoutY="89.0" promptText="yourname@provider.com" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Label layoutX="20.0" layoutY="124.0" text="Password:" AnchorPane.leftAnchor="10.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <PasswordField id="userpass" fx:id="userpass" layoutX="20.0" layoutY="141.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Label layoutX="20.0" layoutY="176.0" text="RAM Usage:" AnchorPane.leftAnchor="10.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ComboBox id="ramusage" fx:id="ramusage" layoutX="20.0" layoutY="193.0" prefHeight="25.0" prefWidth="184.0" visibleRowCount="4" />
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+      <TitledPane collapsible="false" layoutX="20.0" layoutY="307.0" prefHeight="109.0" prefWidth="460.0" text="Update Settings:">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <CheckBox id="updatecheck" fx:id="updatecheck" layoutX="23.0" layoutY="27.0" mnemonicParsing="false" text="Check for updates every start" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                  <CheckBox id="installupdates" fx:id="installupdates" layoutX="20.0" layoutY="45.0" mnemonicParsing="false" text="Install updates automatically" AnchorPane.leftAnchor="10.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+      <Button layoutX="230.0" layoutY="440.0" mnemonicParsing="false" onAction="#saveValues" prefHeight="32.0" prefWidth="120.0" text="Save Settings">
+         <graphic>
+            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/icons/16/activate16.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button id="closebutton" fx:id="closebutton" cancelButton="true" layoutX="380.0" layoutY="440.0" mnemonicParsing="false" onAction="#closeForm" prefHeight="32.0" prefWidth="120.0" text="Cancel" AnchorPane.rightAnchor="20.0">
+         <graphic>
+            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/icons/16/cancel16.png" />
+               </image></ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
