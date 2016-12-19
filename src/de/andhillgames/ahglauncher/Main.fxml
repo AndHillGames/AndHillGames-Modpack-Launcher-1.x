@@ -17,7 +17,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Settings">
+                    <MenuItem mnemonicParsing="false" onAction="#openSettingsDialog" text="Settings">
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -82,7 +82,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Minecraft">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Install Minecraft With Modpack">
+                    <MenuItem fx:id="mnuInstall" mnemonicParsing="false" onAction="#doInstall" text="Install Minecraft With Modpack">
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -90,7 +90,7 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Start Minecraft">
+                        <MenuItem fx:id="mnuStart" mnemonicParsing="false" text="Start Minecraft">
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -98,7 +98,7 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Cancel Starting Minecraft">
+                        <MenuItem fx:id="mnuCancel" mnemonicParsing="false" text="Cancel Starting Minecraft">
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -156,7 +156,7 @@
                   </Menu>
               </menus>
             </MenuBar>
-            <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <ToolBar focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
               <items>
                 <Button contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" onAction="#openSettingsDialog" prefWidth="75.0" text="Settings">
                      <graphic>
@@ -245,7 +245,7 @@
                         </Tooltip>
                      </tooltip>
                   </MenuButton>
-                  <Button contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" onAction="#doInstall" prefWidth="75.0" text="Install">
+                  <Button fx:id="tbInstall" contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" onAction="#doInstall" prefWidth="75.0" text="Install">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -261,7 +261,7 @@
                         </Tooltip>
                      </tooltip>
                   </Button>
-                  <Button contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" prefWidth="75.0" text="Start">
+                  <Button fx:id="tbStart" contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" onAction="#startMinecraft" prefWidth="75.0" text="Start">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -277,7 +277,7 @@
                         </Tooltip>
                      </tooltip>
                   </Button>
-                  <Button contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" prefWidth="75.0" text="Cancel">
+                  <Button fx:id="tbCancel" contentDisplay="TOP" focusTraversable="false" mnemonicParsing="false" prefWidth="75.0" text="Cancel">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -388,12 +388,26 @@
                         <Insets left="10.0" right="5.0" />
                      </HBox.margin>
                   </Text>
+                  <Separator orientation="VERTICAL" />
                   <Text id="dateLabel" fx:id="dateLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="00.00.0000">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </Text>
+                  <Separator orientation="VERTICAL" />
                   <Text id="timeLabel" fx:id="timeLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Separator orientation="VERTICAL" />
+                  <ProgressBar id="progressBar" fx:id="progressBar" prefHeight="24.0" prefWidth="150.0" progress="0.0">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </ProgressBar>
+                  <Separator orientation="VERTICAL" />
+                  <Text id="statusMessage" fx:id="statusMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="486.13671875">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>

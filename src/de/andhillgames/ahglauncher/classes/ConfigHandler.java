@@ -20,7 +20,9 @@ public class ConfigHandler {
 	public static String profileID = "";
 	public static String accessToken = "";
 	public static String minecraftUser = "";
+	public static String userID = "";
 	public static String twitchToken = "";
+	public static String Path = new File("").getAbsolutePath()+"\\";
 
 	public static void loadConfig() {
 		String Path = new File("").getAbsolutePath()+"\\";
@@ -41,6 +43,7 @@ public class ConfigHandler {
 			profileID = (String) root.get("profileid");
 			accessToken = (String) root.get("accesstoken");
 			minecraftUser = (String) root.get("minecraftuser");
+			userID = (String) root.get("userid");
 			twitchToken = (String) root.get("twitchtoken");
 			
 		} catch (IOException | ParseException e) {

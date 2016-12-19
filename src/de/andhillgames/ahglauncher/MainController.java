@@ -1,5 +1,6 @@
 package de.andhillgames.ahglauncher;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,13 +9,20 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.andhillgames.ahglauncher.classes.AHGLibrary;
+import de.andhillgames.ahglauncher.classes.ConfigHandler;
 import de.andhillgames.ahglauncher.dialogs.SettingsController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
@@ -27,23 +35,20 @@ import javafx.stage.StageStyle;
 
 public class MainController {
 	
-	@FXML
-	public WebView welcomePage;
-	
-	@FXML
-	public TextArea consoleOutput;
-	
-	@FXML
-	public Text dateLabel;
-	
-	@FXML
-	public Text timeLabel;
-	
-	@FXML
-	public Tab consoleTab;
-	
-	@FXML
-	public TabPane tabPane;
+	@FXML public WebView welcomePage;
+	@FXML public TextArea consoleOutput;
+	@FXML public Text dateLabel;
+	@FXML public Text timeLabel;
+	@FXML public Tab consoleTab;
+	@FXML public TabPane tabPane;
+	@FXML public ProgressBar progressBar;
+	@FXML public Text statusMessage;
+	@FXML public Button tbInstall;
+	@FXML public Button tbStart;
+	@FXML public Button tbCancel;
+	@FXML public MenuItem mnuInstall;
+	@FXML public MenuItem mnuStart;
+	@FXML public MenuItem mnuCancel;
 	
 	public static Timer timer1 = new Timer();
 	public SimpleDateFormat dFormat = new SimpleDateFormat("dd.MM.YYYY");
@@ -56,7 +61,18 @@ public class MainController {
 		WebEngine webEngine = welcomePage.getEngine();
 		webEngine.setUserAgent(Main.APPNAME);
 		webEngine.load("http://modpack.andhillgames.de");
+		progressBar.progressProperty().bind(webEngine.getLoadWorker().progressProperty());
+		webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
+			public void changed(ObservableValue<? extends State> ov, State oldState, State newState) {
+			
+				if(newState == State.SUCCEEDED){
+					statusMessage.setText("Loaded website: "+webEngine.getLocation());
+				}
 		
+			}
+		});
+		
+		// Cleaning up the console output
 		consoleOutput.clear();
 		
 		// Setting time and date
@@ -74,7 +90,25 @@ public class MainController {
 				
 			}
 			
-		}, 1000, 1000);
+		}, 100, 100);
+		
+		// ...
+		File dir = new File(ConfigHandler.Path+"modpack");
+		if(dir.exists() && dir.isDirectory()) {
+			tbInstall.setDisable(true);
+			mnuInstall.setDisable(true);
+			tbStart.setDisable(false);
+			mnuStart.setDisable(false);
+			tbCancel.setDisable(true);
+			mnuCancel.setDisable(true);
+		} else {
+			tbInstall.setDisable(false);
+			mnuInstall.setDisable(false);
+			tbStart.setDisable(true);
+			mnuStart.setDisable(true);
+			tbCancel.setDisable(true);
+			mnuCancel.setDisable(true);
+		}
 		
 	}
 	
@@ -114,8 +148,18 @@ public class MainController {
 	}
 	
 	public void doInstall() {
-		tabPane.getSelectionModel().select(consoleTab);
-		addToConsole("Installing Minecraft ...");
+		
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Install Minecraft with the AndHillTech Modpack");
+		alert.setHeaderText(null);
+		alert.initStyle(StageStyle.UTILITY);
+		alert.setContentText("Are you sure that you want to install Minecraft with the AndHillTech Modpack?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if ((result.isPresent()) && result.get() == ButtonType.OK) {
+			alert.close();
+			tabPane.getSelectionModel().select(consoleTab);
+			addToConsole("Installing Minecraft ...");
+		}
 	}
 	
 	public void addToConsole(String msg) {
@@ -127,7 +171,7 @@ public class MainController {
 		Stage settings = new Stage();
 		try {
 			root = (AnchorPane)FXMLLoader.load(SettingsController.class.getResource("Settings.fxml"));
-			Scene scene = new Scene(root,500,500);
+			Scene scene = new Scene(root,500,560);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			settings.setScene(scene);
 			settings.setAlwaysOnTop(true);
@@ -143,6 +187,10 @@ public class MainController {
 	
 	public void openHomepage() {
 		AHGLibrary.openUrl("http://www.andhillgames.de");
+	}
+	
+	public void startMinecraft() {
+		
 	}
 	
 	

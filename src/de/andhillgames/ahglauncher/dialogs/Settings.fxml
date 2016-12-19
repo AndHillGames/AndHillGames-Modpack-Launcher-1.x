@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.andhillgames.ahglauncher.dialogs.SettingsController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.andhillgames.ahglauncher.dialogs.SettingsController">
    <children>
       <TitledPane collapsible="false" layoutX="14.0" layoutY="14.0" prefHeight="264.0" prefWidth="460.0" text="Minecraft Settings" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <content>
             <AnchorPane prefHeight="202.0" prefWidth="458.0">
                <children>
-                  <Label layoutX="14.0" layoutY="6.0" text="Java Path:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                  <Label layoutX="14.0" layoutY="6.0" text="Java Runtime Enviroment Path: (JRE not JDK!)):" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -52,7 +52,7 @@
             </AnchorPane>
          </content>
       </TitledPane>
-      <Button layoutX="230.0" layoutY="440.0" mnemonicParsing="false" onAction="#saveValues" prefHeight="32.0" prefWidth="120.0" text="Save Settings">
+      <Button layoutX="230.0" layoutY="440.0" mnemonicParsing="false" onAction="#saveValues" prefHeight="32.0" prefWidth="120.0" text="Save Settings" AnchorPane.bottomAnchor="20.0">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -61,7 +61,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button id="closebutton" fx:id="closebutton" cancelButton="true" layoutX="380.0" layoutY="440.0" mnemonicParsing="false" onAction="#closeForm" prefHeight="32.0" prefWidth="120.0" text="Cancel" AnchorPane.rightAnchor="20.0">
+      <Button id="closebutton" fx:id="closebutton" cancelButton="true" layoutX="380.0" layoutY="440.0" mnemonicParsing="false" onAction="#closeForm" prefHeight="32.0" prefWidth="120.0" text="Cancel" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -69,5 +69,6 @@
                </image></ImageView>
          </graphic>
       </Button>
+      <Text layoutX="20.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notice: When you click on &quot;Save Settings&quot; the Launcher will connect to the Mojang Auth-Server to get your AccessToken, User ID, Profile ID and Minecraft username. These informations are important to run Minecraft proberbly." textAlignment="JUSTIFY" wrappingWidth="460.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
    </children>
 </AnchorPane>
