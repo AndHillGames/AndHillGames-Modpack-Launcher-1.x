@@ -23,6 +23,7 @@ public class ConfigHandler {
 	public static String userID = "";
 	public static String twitchToken = "";
 	public static String Path = new File("").getAbsolutePath()+"\\";
+	public static String ModpackPath = Path+"modpack\\";
 
 	public static void loadConfig() {
 		String Path = new File("").getAbsolutePath()+"\\";

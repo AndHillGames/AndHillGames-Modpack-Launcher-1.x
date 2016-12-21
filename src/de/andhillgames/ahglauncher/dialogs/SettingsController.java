@@ -62,13 +62,17 @@ public class SettingsController {
 		
 		// Checks if the access token is available. If not get it!
 		if(ConfigHandler.accessToken.isEmpty()) {
-			String[] newAccessData = new String[5];
-			newAccessData = Minecraft.getAccsessToken(ConfigHandler.userEmail, ConfigHandler.userPass, ConfigHandler.clientToken);			
-			ConfigHandler.accessToken = newAccessData[0];
-			ConfigHandler.profileID = newAccessData[1];
-			ConfigHandler.minecraftUser = newAccessData[2];
-			ConfigHandler.userID = newAccessData[3];
-			ConfigHandler.twitchToken = newAccessData[4];
+			try {
+				String[] newAccessData = new String[5];
+				newAccessData = Minecraft.getAccsessToken(ConfigHandler.userEmail, ConfigHandler.userPass, ConfigHandler.clientToken);			
+				ConfigHandler.accessToken = newAccessData[0];
+				ConfigHandler.profileID = newAccessData[1];
+				ConfigHandler.minecraftUser = newAccessData[2];
+				ConfigHandler.userID = newAccessData[3];
+				ConfigHandler.twitchToken = newAccessData[4];
+			} catch(Exception e) {
+				System.out.println("Userdaten stimmen möglicherweise nicht");
+			}
 		}
 		
 		JSONObject root = new JSONObject();

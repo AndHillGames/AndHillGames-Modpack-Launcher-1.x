@@ -13,6 +13,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 public class Minecraft {
 
 	@SuppressWarnings("deprecation")
@@ -24,37 +27,61 @@ public class Minecraft {
 		
 		try {
 		
-		URL url = new URL(authURL);
-		byte[] rawData = buildPayLoad().getBytes("UTF-8");
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setUseCaches(false);
-		conn.setDoOutput(true);
-		conn.setDoInput(true);
-		conn.setConnectTimeout(15000);
-		conn.setReadTimeout(15000);
-		conn.setRequestMethod("POST");
-		conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-		conn.setRequestProperty("Content-Length", rawData.length + "");
-		conn.setRequestProperty("Content-Language", "en-US");
+			URL url = new URL(authURL);
+			byte[] rawData = buildPayLoad().getBytes("UTF-8");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setUseCaches(false);
+			conn.setDoOutput(true);
+			conn.setDoInput(true);
+			conn.setConnectTimeout(15000);
+			conn.setReadTimeout(15000);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+			conn.setRequestProperty("Content-Length", rawData.length + "");
+			conn.setRequestProperty("Content-Language", "en-US");
 		
 		
-		DataOutputStream writer = new DataOutputStream(conn.getOutputStream());
-		writer.write(rawData);
-		writer.flush();
-		writer.close();
+			DataOutputStream writer = new DataOutputStream(conn.getOutputStream());
+			writer.write(rawData);
+			writer.flush();
+			writer.close();
+			
 		
-		InputStream stream = null;
-        String returnable = null;
-		try {
-			stream = conn.getInputStream();
-            returnable = IOUtils.toString(stream, Charsets.UTF_8);
-		} catch (IOException e) {
-			stream = conn.getErrorStream();
-
-			if (stream == null) {
-				throw e;
-			}
-		} finally {
+			InputStream stream = null;
+			String returnable = null;
+			try {
+				stream = conn.getInputStream();
+				returnable = IOUtils.toString(stream, Charsets.UTF_8);
+				
+				if (returnable != null) {
+				
+					try {
+						JSONParser parser = new JSONParser();
+						Object obj = parser.parse(returnable);
+						JSONObject root = (JSONObject) obj;
+						JSONObject userid = (JSONObject) root.get("user");
+						JSONObject selectedProfile = (JSONObject) root.get("selectedProfile");
+						accessdata[0] = (String) root.get("accessToken");		// Access Token
+						accessdata[1] = (String) selectedProfile.get("id");		// Profile ID
+						accessdata[2] = (String) selectedProfile.get("name");	// Minecraft User
+						accessdata[3] = (String) userid.get("id");				// User ID
+						accessdata[4] = "";
+					
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				} else {
+					
+				}
+				
+				
+			} catch (IOException e) {
+				stream = conn.getErrorStream();
+			
+				if (stream == null) {
+					throw e;
+				}
+			} finally {
             try {
                 if (stream != null)
                     stream.close();
@@ -64,27 +91,30 @@ public class Minecraft {
         stream.close();
         conn.disconnect();
         
-        JSONParser parser = new JSONParser();
-        try {
-			Object obj = parser.parse(returnable);
-			JSONObject root = (JSONObject) obj;
-			JSONObject userid = (JSONObject) root.get("user");
-			JSONObject selectedProfile = (JSONObject) root.get("selectedProfile");
-			accessdata[0] = (String) root.get("accessToken");		// Access Token
-			accessdata[1] = (String) selectedProfile.get("id");		// Profile ID
-			accessdata[2] = (String) selectedProfile.get("name");	// Minecraft User
-			accessdata[3] = (String) userid.get("id");				// User ID
-			accessdata[4] = "";
+        if (returnable == null) {
+        	
+        	accessdata[0] = "";	// Access Token
+			accessdata[1] = "";	// Profile ID
+			accessdata[2] = "";	// Minecraft User
+			accessdata[3] = "";	// User ID
+			accessdata[4] = ""; // TwitchToken
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Login data incorrect!");
+			alert.setHeaderText(null);
+			alert.setContentText("The login data you entered are incorrect. Please open the settings again and check your email and password and try it again.");
 			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+			alert.show();
+        	
+        }
+        
 		
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e){
 			e.printStackTrace();
 		}
+		
+		
 		
 		return accessdata;
 	}

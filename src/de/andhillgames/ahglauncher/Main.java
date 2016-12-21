@@ -17,7 +17,7 @@ public class Main extends Application {
 	
 	public static final String APPNAME = "AndHillGames Modpack Launcher";
 	public static final String APPVERSION = "1.0.0";
-	public static final String APPBUILD = "8";
+	public static final String APPBUILD = "10";
 	public static final String MODPACKNAME = "AndHillTech";
 	public static final String MODPACKVERSION = "1.0";
 	

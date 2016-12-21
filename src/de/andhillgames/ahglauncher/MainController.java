@@ -10,6 +10,7 @@ import java.util.TimerTask;
 
 import de.andhillgames.ahglauncher.classes.AHGLibrary;
 import de.andhillgames.ahglauncher.classes.ConfigHandler;
+import de.andhillgames.ahglauncher.dialogs.InstallMinecraftController;
 import de.andhillgames.ahglauncher.dialogs.SettingsController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -30,13 +31,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class MainController {
 	
 	@FXML public WebView welcomePage;
-	@FXML public TextArea consoleOutput;
+	@FXML public static TextArea consoleOutput;
 	@FXML public Text dateLabel;
 	@FXML public Text timeLabel;
 	@FXML public Tab consoleTab;
@@ -73,7 +75,7 @@ public class MainController {
 		});
 		
 		// Cleaning up the console output
-		consoleOutput.clear();
+		//consoleOutput.setText("");
 		
 		// Setting time and date
 		dateLabel.setText(dFormat.format(new Date()));
@@ -159,10 +161,25 @@ public class MainController {
 			alert.close();
 			tabPane.getSelectionModel().select(consoleTab);
 			addToConsole("Installing Minecraft ...");
+			AnchorPane root;
+			Stage installMinecraft = new Stage();
+			try {
+				root = (AnchorPane)FXMLLoader.load(InstallMinecraftController.class.getResource("InstallMinecraft.fxml"));
+				Scene scene = new Scene(root, 500, 560);
+				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				installMinecraft.setScene(scene);
+				installMinecraft.setAlwaysOnTop(true);
+				installMinecraft.setTitle("Installing Minecraft ...");
+				installMinecraft.setResizable(false);
+				installMinecraft.initStyle(StageStyle.UTILITY);
+				installMinecraft.showAndWait();
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
-	public void addToConsole(String msg) {
+	public static void addToConsole(String msg) {
 		consoleOutput.setText(consoleOutput.getText()+msg+"\n");
 	}
 	
@@ -178,7 +195,9 @@ public class MainController {
 			settings.setTitle("Settings");
 			settings.setResizable(false);
 			settings.initStyle(StageStyle.UTILITY);
-			settings.showAndWait();
+			settings.initModality(Modality.WINDOW_MODAL);
+			
+			settings.show();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -190,7 +209,10 @@ public class MainController {
 	}
 	
 	public void startMinecraft() {
-		
+		File file = new File(ConfigHandler.ModpackPath+"bin");
+		if(file.exists() == false) {
+			file.mkdir();
+		}
 	}
 	
 	

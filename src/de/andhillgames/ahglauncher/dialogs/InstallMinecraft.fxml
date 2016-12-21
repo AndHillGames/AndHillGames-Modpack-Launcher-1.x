@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="560.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.andhillgames.ahglauncher.dialogs.InstallMinecraftController">
+   <children>
+      <Text layoutX="125.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently the launcher is installing Minecraft with the AndHillTech Modpack. This process can take some minutes. Please wait until this process is finished." textAlignment="JUSTIFY" wrappingWidth="460.13671875" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <CheckBox fx:id="checkDirs" allowIndeterminate="true" focusTraversable="false" layoutX="20.0" layoutY="95.0" mnemonicParsing="false" text="Creating Necessary Directories" />
+      <CheckBox fx:id="checkList" allowIndeterminate="true" focusTraversable="false" layoutX="20.0" layoutY="70.0" mnemonicParsing="false" text="Downloading Assetlist, Modlist And Directorylist" />
+      <CheckBox fx:id="checkMinecraft" allowIndeterminate="true" focusTraversable="false" layoutX="20.0" layoutY="120.0" mnemonicParsing="false" text="Downloading Minecraft" />
+      <CheckBox fx:id="checkMods" allowIndeterminate="true" focusTraversable="false" layoutX="20.0" layoutY="145.0" mnemonicParsing="false" text="Downloading Mods" />
+      <CheckBox fx:id="checkAssets" allowIndeterminate="true" focusTraversable="false" layoutX="20.0" layoutY="170.0" mnemonicParsing="false" text="Downloading Assets" />
+      <CheckBox fx:id="checkLibraries" allowIndeterminate="true" focusTraversable="false" layoutX="20.0" layoutY="195.0" mnemonicParsing="false" text="Downloading Libraries" />
+      <CheckBox fx:id="checkBinaries" allowIndeterminate="true" focusTraversable="false" layoutX="20.0" layoutY="220.0" mnemonicParsing="false" text="Downloading External Binaries" />
+      <CheckBox fx:id="checkBinariesExt" allowIndeterminate="true" focusTraversable="false" layoutX="20.0" layoutY="245.0" mnemonicParsing="false" text="Extracting External Libraries" />
+      <CheckBox fx:id="checkLibrariesExt" allowIndeterminate="true" focusTraversable="false" layoutX="20.0" layoutY="270.0" mnemonicParsing="false" text="Extracting Libraries" />
+      <Separator layoutX="20.0" layoutY="307.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <TitledPane animated="false" collapsible="false" layoutX="20.0" layoutY="327.0" prefHeight="103.0" prefWidth="460.0" text="File Progress">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="File:" AnchorPane.leftAnchor="10.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="37.0" layoutY="14.0" prefHeight="17.0" prefWidth="393.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="10.0" />
+                  <ProgressBar layoutX="20.0" layoutY="31.0" prefHeight="24.0" prefWidth="406.0" progress="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+   </children>
+</AnchorPane>
